@@ -1,1 +1,44 @@
-window.alert('test');
+var Hashtag = Backbone.Model.extend({
+
+});
+
+var Hashtags = Backbone.Collection.extend({
+  url: '/api/hashtags',
+  model: Hashtag
+});
+
+var Tweet = Backbone.Model.extend({
+  initialize: function () {
+    console.log(this);
+  }
+});
+
+var Tweets = Backbone.Collection.extend({
+  model: Tweet
+});
+
+var hashtags = new Hashtags();
+
+window.socket = io.connect('http://localhost');
+
+socket.on('connect', function () {
+  console.log('Socket connected');
+  socket.emit('hashtags:create', { name: 'boston' });
+});
+
+socket.on('disconnect', function () {
+  console.log('Socket disconnected');
+});
+
+socket.on('tweets:create', function (tweet) {
+  _.each(hashtags.models, function (hashtag) {
+    if (tweet.hashtag !== hashtag.get('name')) return;
+    hashtag.tweets = hashtag.tweets || new Tweets();
+    hashtag.tweets.add(tweet);
+  });
+});
+
+socket.on('hashtags:create', function (hashtag) {
+  hashtags.add(hashtag);
+});
+

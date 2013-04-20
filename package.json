@@ -12,6 +12,7 @@
     "socket.io": "~0.9.14",
     "save": "0.0.17",
     "crud-service": "0.0.3",
-    "schemata": "0.0.6"
+    "schemata": "0.0.6",
+    "lodash": "~1.2.0"
   }
 }

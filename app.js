@@ -1,9 +1,9 @@
-
 /**
  * Module dependencies.
  */
 
 var
+  _ = require('lodash'),
   express = require('express'),
   http = require('http'),
   path = require('path');
@@ -41,18 +41,44 @@ var twit = new Twitter({
 
 var io = require('socket.io').listen(server);
 
-var tweet = require('./lib/tweet/service');
+var tweetService = require('./lib/tweet/service');
 
-twit.stream('statuses/filter', {
-  track: '#boston',
-  locations: '-180,-90,180,90'
-}, function (stream) {
-  stream.on('data', function (data) {
-    console.log(data);
+var hashtags = [];
 
-    tweet.create(data, function (error, createdModel) {
-      io.sockets.emit('todos:create', createdModel);
+io.sockets.on('connection', function (socket) {
+
+  socket.on('hashtags:create', function (hashtag) {
+
+    twit.stream('statuses/filter', {
+      track: '#' + hashtag.name,
+      locations: '-180,-90,180,90'
+    }, function (stream) {
+      stream.on('data', function (data) {
+        // Data could be disconnect
+        if (!data.entities) return;
+        var tweet = data;
+
+        var tagged = _.find(tweet.entities.hashtags, function (tweetHashtag) {
+          // Match whole hashtag only
+          var hasHashtag = new RegExp('(?:^|\s)(' + hashtag.name + ')(?=\s|$)', 'i');
+          console.log(hasHashtag, tweetHashtag);
+          return hasHashtag.test(tweetHashtag.text);
+        });
+
+        if (!tagged) return;
+
+        // console.log(require('util').inspect(tweet, { depth: null }));
+
+        tweet.hashtag = hashtag.name;
+
+        tweetService.create(tweet, function (error, createdModel) {
+          if (error) throw error;
+          socket.emit('tweets:create', createdModel);
+        });
+      });
     });
+
+    socket.emit('hashtags:create', hashtag);
   });
 });
 
