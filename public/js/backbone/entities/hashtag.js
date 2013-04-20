@@ -5,4 +5,5 @@ App.module('Entities', function (Entities, App, Backbone, Marionette, $, _) {
       this.tweets = App.request('tweet:entities');
     }
   });
+
 });
