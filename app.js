@@ -81,7 +81,3 @@ io.sockets.on('connection', function (socket) {
     socket.emit('hashtags:create', hashtag);
   });
 });
-
-app.get('/', function (req, res) {
-  res.sendfile(__dirname + '/views/index.html');
-});
