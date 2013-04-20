@@ -29,10 +29,6 @@ module.exports = function (grunt) {
       jade: {
         files: ['./public/templates/**/*.jade'],
         tasks: ['jade']
-      },
-      concat: {
-        files: '<%= concat.dist.src %>',
-        tasks: ['concat']
       }
     }
   });
