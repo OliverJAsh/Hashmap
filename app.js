@@ -55,3 +55,7 @@ twit.stream('statuses/filter', {
     });
   });
 });
+
+app.get('/', function (req, res) {
+  res.render(__dirname + '/views/index');
+});
