@@ -17,31 +17,6 @@ var Tweets = Backbone.Collection.extend({
   model: Tweet
 });
 
-var hashtags = new Hashtags();
-
-window.socket = io.connect('http://localhost');
-
-socket.on('connect', function () {
-  console.log('Socket connected');
-  socket.emit('hashtags:create', { name: 'boston' });
-});
-
-socket.on('disconnect', function () {
-  console.log('Socket disconnected');
-});
-
-socket.on('tweets:create', function (tweet) {
-  _.each(hashtags.models, function (hashtag) {
-    if (tweet.hashtag !== hashtag.get('name')) return;
-    hashtag.tweets = hashtag.tweets || new Tweets();
-    hashtag.tweets.add(tweet);
-  });
-});
-
-socket.on('hashtags:create', function (hashtag) {
-  hashtags.add(hashtag);
-});
-
 
 var HashtagView = Marionette.Layout.extend({
   template: function () {
@@ -59,6 +34,40 @@ App.addRegions({
   hashtagsRegion: '.hashtags'
 });
 
-var hashtagsView = new HashtagsView({ collection: hashtags });
 
-App.hashtagsRegion.show(hashtagsView);
+
+
+
+App.addInitializer(function () {
+  var hashtags = new Hashtags();
+
+  window.socket = io.connect('http://localhost');
+
+  socket.on('connect', function () {
+    console.log('Socket connected');
+    socket.emit('hashtags:create', { name: 'boston' });
+  });
+
+  socket.on('disconnect', function () {
+    console.log('Socket disconnected');
+  });
+
+  socket.on('tweets:create', function (tweet) {
+    _.each(hashtags.models, function (hashtag) {
+      if (tweet.hashtag !== hashtag.get('name')) return;
+      hashtag.tweets = hashtag.tweets || new Tweets();
+      hashtag.tweets.add(tweet);
+    });
+  });
+
+  socket.on('hashtags:create', function (hashtag) {
+    hashtags.add(hashtag);
+  });
+
+  var hashtagsView = new HashtagsView({ collection: hashtags });
+
+  App.hashtagsRegion.show(hashtagsView);
+
+});
+
+App.start();
