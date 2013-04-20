@@ -1,4 +1,4 @@
 /node_modules
+/dist
 /public/components
-/public/js/build
 /public/js/temp

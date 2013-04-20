@@ -18,22 +18,29 @@ var Tweets = Backbone.Collection.extend({
 });
 
 
+
+
+
+
+var App = new Marionette.Application();
+
+App.addRegions({
+  headerRegion: '.header',
+  hashtagsRegion: '.hashtags'
+});
+
+
+
+
+
+
 var HashtagView = Marionette.Layout.extend({
-  template: function () {
-    return $('<div>').text(arguments[0].name).prop('outerHTML');
-  }
+  template: JST['hashtag']
 });
 
 var HashtagsView = Marionette.CollectionView.extend({
   itemView: HashtagView
 });
-
-var App = new Marionette.Application();
-
-App.addRegions({
-  hashtagsRegion: '.hashtags'
-});
-
 
 
 
@@ -69,5 +76,3 @@ App.addInitializer(function () {
   App.hashtagsRegion.show(hashtagsView);
 
 });
-
-App.start();

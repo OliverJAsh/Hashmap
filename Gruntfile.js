@@ -34,17 +34,17 @@ module.exports = function (grunt) {
     },
 
     useminPrepare: {
-      html: './views/index.html',
+      html: './public/index.html',
       options: {
-        dest: './public'
+        dest: './dist'
       }
     },
 
     usemin: {
-      html: ['./public/*.html'],
-      css: ['./public/css/*.css'],
+      html: ['./dist/*.html'],
+      css: ['./dist/css/*.css'],
       options: {
-        basedir: './public'
+        dirs: ['./dist']
       }
     }
   });
@@ -58,11 +58,14 @@ module.exports = function (grunt) {
 
   grunt.registerTask('default', [
     'jade',
+    'watch'
+  ]);
+
+  grunt.registerTask('build', [
     'useminPrepare',
     'concat',
     'uglify',
     'htmlmin',
-    'usemin',
-    'watch'
+    'usemin'
   ]);
 };

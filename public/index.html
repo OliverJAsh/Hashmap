@@ -12,6 +12,13 @@
     <script src="/components/backbone/backbone.js"></script>
     <script src="/components/backbone.marionette/lib/backbone.marionette.js"></script>
     <script src="/components/socket.io-client/dist/socket.io.js"></script>
-    <script src="js/build/app.js"></script>
+    <!-- build:js ../dist/js/app.js -->
+    <script src="/js/temp/templates.js"></script>
+    <script src="/js/backbone/app.js"></script>
+    <script src="/js/backbone/apps/header/show/views/header.js"></script>
+    <script src="/js/backbone/apps/header/show/controller.js"></script>
+    <script src="/js/backbone/apps/header/index.js"></script>
+    <script>App.start();</script>
+    <!-- endbuild -->
   </body>
 </html>
