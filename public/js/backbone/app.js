@@ -43,4 +43,13 @@ App.addInitializer(function () {
     socket.emit('hashtags:create', { name: name });
   });
 
+  google.maps.event.addDomListener(window, 'load', function initialize() {
+    var mapOptions = {
+      center: new google.maps.LatLng(-34.397, 150.644),
+      zoom: 8,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    App.map = new google.maps.Map(document.querySelector('.map'), mapOptions);
+  });
+
 });

@@ -68,6 +68,8 @@ io.sockets.on('connection', function (socket) {
         if (!data.entities) return;
         var tweet = data;
 
+        if (!tweet.geo) return;
+
         hashtags.forEach(function (hashtag) {
           var tagged = _.find(tweet.entities.hashtags, function (tweetHashtag) {
             // Match whole hashtag only
