@@ -49,31 +49,45 @@ io.sockets.on('connection', function (socket) {
 
   socket.on('hashtags:create', function (hashtag) {
 
+    hashtags.push(hashtag);
     twit.stream('statuses/filter', {
-      track: '#' + hashtag.name,
+      track: hashtags.map(function (hashtag) {
+        return '#' + hashtag.name;
+      }).join (','),
       locations: '-180,-90,180,90'
     }, function (stream) {
+      stream.on('error', function (error) {
+        console.log(error);
+      });
+      stream.on('end', function (response) {
+        console.log(response);
+      });
+      stream.on('destroy', function (response) {
+        console.log(response);
+      });
       stream.on('data', function (data) {
         // Data could be disconnect
         if (!data.entities) return;
         var tweet = data;
 
-        var tagged = _.find(tweet.entities.hashtags, function (tweetHashtag) {
-          // Match whole hashtag only
-          var hasHashtag = new RegExp('(?:^|\s)(' + hashtag.name + ')(?=\s|$)', 'i');
-          console.log(hasHashtag, tweetHashtag);
-          return hasHashtag.test(tweetHashtag.text);
-        });
+        hashtags.forEach(function (hashtag) {
+          var tagged = _.find(tweet.entities.hashtags, function (tweetHashtag) {
+            // Match whole hashtag only
+            var hasHashtag = new RegExp('(?:^|\s)(' + hashtag.name + ')(?=\s|$)', 'i');
+            console.log(hasHashtag, tweetHashtag);
+            return hasHashtag.test(tweetHashtag.text);
+          });
 
-        if (!tagged) return;
+          if (!tagged) return;
 
-        // console.log(require('util').inspect(tweet, { depth: null }));
+          // console.log(require('util').inspect(tweet, { depth: null }));
 
-        tweet.hashtag = hashtag.name;
+          tweet.hashtag = hashtag.name;
 
-        tweetService.create(tweet, function (error, createdModel) {
-          if (error) throw error;
-          socket.emit('tweets:create', createdModel);
+          tweetService.create(tweet, function (error, createdModel) {
+            if (error) throw error;
+            socket.emit('tweets:create', createdModel);
+          });
         });
       });
     });
