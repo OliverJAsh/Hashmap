@@ -42,3 +42,23 @@ socket.on('hashtags:create', function (hashtag) {
   hashtags.add(hashtag);
 });
 
+
+var HashtagView = Marionette.Layout.extend({
+  template: function () {
+    return $('<div>').text(arguments[0].name).prop('outerHTML');
+  }
+});
+
+var HashtagsView = Marionette.CollectionView.extend({
+  itemView: HashtagView
+});
+
+var App = new Marionette.Application();
+
+App.addRegions({
+  hashtagsRegion: '.hashtags'
+});
+
+var hashtagsView = new HashtagsView({ collection: hashtags });
+
+App.hashtagsRegion.show(hashtagsView);
