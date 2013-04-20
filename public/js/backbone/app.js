@@ -30,7 +30,6 @@ App.addInitializer(function () {
     var hashtags = App.request('hashtags');
     _.each(hashtags.models, function (hashtag) {
       if (tweet.hashtag !== hashtag.get('name')) return;
-      hashtag.tweets = hashtag.tweets || new App.Entities.Tweets();
       hashtag.tweets.add(tweet);
     });
   });
