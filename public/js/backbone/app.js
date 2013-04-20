@@ -8,28 +8,12 @@ App.addRegions({
 
 
 
-
-
-var HashtagView = Marionette.Layout.extend({
-  template: JST['hashtag']
-});
-
-var HashtagsView = Marionette.CollectionView.extend({
-  itemView: HashtagView
-});
-
-
-
-
 App.addInitializer(function () {
+
   this.hashtags = App.request('create:hashtag:entities');
 
   App.reqres.setHandler('hashtags', function () {
     return App.hashtags;
-  });
-
-  App.vent.on('add:hashtag', function (name) {
-    socket.emit('hashtags:create', { name: name });
   });
 
   window.socket = io.connect('http://localhost');
@@ -56,8 +40,8 @@ App.addInitializer(function () {
     hashtags.add(hashtag);
   });
 
-  var hashtagsView = new HashtagsView({ collection: this.hashtags });
-
-  App.hashtagsRegion.show(hashtagsView);
+  App.vent.on('add:hashtag', function (name) {
+    socket.emit('hashtags:create', { name: name });
+  });
 
 });

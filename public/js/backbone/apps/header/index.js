@@ -9,4 +9,5 @@ App.module('HeaderApp', function (HeaderApp, App, Backbone, Marionette, $, _) {
   HeaderApp.on('start', function () {
     API.showHeader();
   });
+
 });
