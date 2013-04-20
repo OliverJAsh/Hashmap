@@ -83,5 +83,5 @@ io.sockets.on('connection', function (socket) {
 });
 
 app.get('/', function (req, res) {
-  res.render(__dirname + '/views/index');
+  res.sendfile(__dirname + '/views/index.html');
 });
