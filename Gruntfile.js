@@ -15,54 +15,33 @@ module.exports = function (grunt) {
       }
     },
 
+    concat: {
+      dist: {
+        src: [
+          './public/js/temp/**/*.js',
+          './public/js/backbone/**/*.js'
+        ],
+        dest: './public/js/build/app.js'
+      }
+    },
+
     watch: {
       jade: {
         files: ['./public/templates/**/*.jade'],
         tasks: ['jade']
-      }
-    },
-
-    htmlmin: {
-      dist: {
-        files: [{
-          expand: true,
-          cwd: './views',
-          src: '*.html',
-          dest: './public'
-        }]
-      }
-    },
-
-    useminPrepare: {
-      html: './views/index.html',
-      options: {
-        dest: './public'
-      }
-    },
-
-    usemin: {
-      html: ['./public/*.html'],
-      css: ['./public/css/*.css'],
-      options: {
-        basedir: './public'
       }
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-jade');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-usemin');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-htmlmin');
 
   grunt.registerTask('default', [
     'jade',
-    'useminPrepare',
     'concat',
-    'uglify',
-    'htmlmin',
-    'usemin',
+    // 'uglify',
     'watch'
   ]);
 };
