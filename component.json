@@ -7,6 +7,7 @@
     "backbone.iobind": "~0.4.6",
     "underscore": "~1.4.4",
     "socket.io-client": "~0.9.11",
-    "backbone.marionette": "~1.0.2"
+    "backbone.marionette": "~1.0.2",
+    "jade": "~0.29.0"
   }
 }
