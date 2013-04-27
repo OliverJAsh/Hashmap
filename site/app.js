@@ -39,7 +39,7 @@ var twit = new Twitter({
 
 var io = require('socket.io').listen(server);
 
-var tweetService = require('./lib/tweet/service');
+var tweetService = require('../lib/tweet/service');
 
 var hashtags = [];
 
