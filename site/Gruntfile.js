@@ -1,7 +1,7 @@
 module.exports = function (grunt) {
   grunt.initConfig({
     jade: {
-      compile: {
+      all: {
         options: {
           compileDebug: true,
           client: true,
@@ -10,7 +10,7 @@ module.exports = function (grunt) {
           }
         },
         files: {
-          './temp/scripts/templates.js': ['./public/templates/**/*.jade']
+          './public/scripts/templates.js': ['./public/templates/**/*.jade']
         }
       }
     },
@@ -87,10 +87,12 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('build', [
+    'jade',
     'useminPrepare',
     'concat',
     'uglify',
     'copy',
-    'usemin'
+    'usemin',
+    'compass:dist'
   ]);
 };
