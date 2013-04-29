@@ -1,0 +1,38 @@
+$base-border-radius: 5px;
+$btn-border-color: #ccc;
+
+.btn {
+  background-color: hsl(0, 0%, 90%);
+  @include background-image(linear-gradient(top, #fff, #e6e6e6));
+  @include border-radius($base-border-radius);
+  @include box-shadow(inset 0 1px 0 hsla(0, 0%, 100%, 0.2), 0 1px 2px hsla(0, 0%, 0%, 0.05));
+  background-repeat: repeat-x;
+  padding: 5px 10px;
+  font-size: 14px;
+  line-height: $base-line-height;
+  border: 1px solid $btn-border-color;
+  border-bottom-color: darken($btn-border-color, 10%);
+
+  &:hover {
+    @include transition(background-position 0.1s linear);
+    background-position: 0 -8px;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  &:active {
+    @include box-shadow(inset 0 2px 4px hsla(0, 0%, 0%, 0.15), 0 1px 2px hsla(0, 0%, 0%, 0.05));
+  }
+
+  &[disabled] {
+    @include opacity(0.65);
+    @include box-shadow(none);
+    cursor: default;
+    background-image: none;
+    background-color: #e6e6e6;
+  }
+}
+
+.btn--off {
+  @include background-image(linear-gradient(top, hsl(0, 100%, 90%), hsl(0, 100%, 70%)));
+}

@@ -1,15 +1,17 @@
 @import "compass";
 
-@import "shame";
-@import "normalize";
-
 $base-font-size: 14px;
 $base-line-height: 1.285714286;
-$base-spacing-unit: $base-line-height * $base-font-size;
+$base-spacing-unit: ($base-line-height * $base-font-size) / 2;
+$half-spacing-unit: $base-spacing-unit / 2;
+
+@import "shame";
+@import "normalize";
 
 body {
   font-size: $base-font-size;
   line-height: $base-line-height;
+  max-width: 640px;
 }
 
 button {
@@ -56,15 +58,26 @@ h4, h5, h6 {
 .h5 { @extend h5; }
 .h6 { @extend h6; }
 
-.container {
-  margin: auto;
+.header,
+.hashtags {
   padding: $base-spacing-unit;
-  max-width: 700px;
 }
 
-html { height: 100% }
-body { height: 100%; margin: 0; padding: 0 }
-.map { height: 400px; width: 100%; }
+.map__controls {
+  input {
+    @include border-radius(0);
+  }
+
+  .text-input {
+    border-right: 0;
+    width: 241px;
+  }
+}
+
+.map__container {
+  height: 300px;
+  width: 100%;
+}
 
 @import "objects/btn";
 @import "objects/text-input";

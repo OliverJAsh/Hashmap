@@ -9,6 +9,7 @@ var App = new Marionette.Application()
 
 App.addRegions({
   headerRegion: '.header',
+  mapRegion: '.map',
   hashtagsRegion: '.hashtags'
 })
 
@@ -28,7 +29,7 @@ App.addInitializer(function () {
     return App.hashtags
   })
 
-  var socket = io.connect('http://localhost')
+  var socket = io.connect()
 
   socket.on('tweets:create', function (tweet) {
     var hashtags = App.request('hashtags')
@@ -39,7 +40,7 @@ App.addInitializer(function () {
   })
 
   socket.on('log:tweet', function (tweet) {
-    console.log('Tweet:', tweet)
+    console.log('Tweet:', tweet.text)
   })
 
   socket.on('hashtag:created', function (hashtags) {
@@ -51,15 +52,6 @@ App.addInitializer(function () {
     socket.emit('hashtags:create', hashtag)
     var hashtags = App.request('hashtags')
     hashtags.add(hashtag)
-  })
-
-  google.maps.event.addDomListener(window, 'load', function initialize() {
-    var mapOptions = {
-      center: new google.maps.LatLng(-34.397, 150.644),
-      zoom: 8,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    }
-    App.map = new google.maps.Map(document.querySelector('.map'), mapOptions)
   })
 
 })

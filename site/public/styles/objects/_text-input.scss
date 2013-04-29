@@ -1,0 +1,12 @@
+$border-radius: 4px;
+
+.text-input {
+  @include box-shadow(inset 0 1px 1px hsla(0, 0%, 0%, 0.075));
+  border: 1px solid hsl(0, 0%, 70%);
+  @include border-radius($border-radius);
+  line-height: $base-line-height;
+  // @todo Move to normalize
+  font-size: $base-font-size;
+  outline: 0;
+  padding: 5px 6px;
+}
