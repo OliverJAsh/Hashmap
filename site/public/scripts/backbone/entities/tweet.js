@@ -15,7 +15,7 @@ App.module('Entities', function (Entities, App, Backbone, Marionette, $, _) {
       var center = bounds.getCenter()
 
       response.geo = {}
-      response.geo.coordinates = [center.lat(), center.lng()]
+      response.geo.coordinates = [center.lng(), center.lat()]
 
       return response
     }
