@@ -7,7 +7,7 @@ var properties = {
   projectId: 'sbscribe',
   domain: 'localhost',
   publicSiteUrl: 'http://localhost:' + basePort,
-  basePort: basePort
+  port: basePort
 }
 
 var environmentProperties = {
