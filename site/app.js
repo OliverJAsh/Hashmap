@@ -1,7 +1,3 @@
-/**
- * Module dependencies.
- */
-
 var
   _ = require('lodash'),
   express = require('express'),
@@ -9,7 +5,10 @@ var
 
 var
   env = process.env.NODE_ENV || 'development',
-  debug = env === 'development'
+  debug = env === 'development',
+  // Only have debug logging on development
+  logLevel = debug ? 'debug' : 'info',
+  logger = require('logga')({ timeOnly: debug, logLevel: logLevel })
 
 var app = express()
 
@@ -76,7 +75,7 @@ io.sockets.on('connection', function (socket) {
       }
     }
 
-    console.log('Matching for hashtags:', hashtags.map(prop('name')))
+    logger.info('Matching for hashtags:', hashtags.map(prop('name')))
 
     // Setup the Twitter stream! Track our hashtags, and assert a location.
     // Include replies.
@@ -91,7 +90,7 @@ io.sockets.on('connection', function (socket) {
       twitterStream = stream
 
       stream.on('error', function (error) {
-        console.error('Error:', error)
+        logger.error(error)
       })
 
       stream.on('data', function (data) {
@@ -110,7 +109,7 @@ io.sockets.on('connection', function (socket) {
         // the Twitter stream API does not allow you to filter by matches
         // explicitly
 
-        console.log('Hashtag:', tweetHashtags)
+        logger.debug('Hashtag:', tweetHashtags)
 
         hashtags.forEach(function (hashtag) {
           var tagged = _.find(tweetHashtags, function (tweetHashtag) {
