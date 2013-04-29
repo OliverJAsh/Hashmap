@@ -23,7 +23,14 @@
   "node": true,
   "noempty": false,
   "nonew": true,
-  "predef": [],
+  "predef": [
+    "Marionette",
+    "io",
+    "_",
+    "google",
+    "App",
+    "JST"
+  ],
   "quotmark": "single",
   "smarttabs": true,
   "strict": false,

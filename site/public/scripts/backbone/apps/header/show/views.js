@@ -1,6 +1,10 @@
-App.module('HeaderApp.Show', function (Show, App, Backbone, Marionette, $, _) {
+App.module('HeaderApp.Show', function (Show, App, Backbone, Marionette) {
 
   Show.Layout = Marionette.Layout.extend({
+    triggers: {
+      'click .js-toggle-live-mode': 'live:mode:button:clicked'
+    },
+
     template: JST['header-show-layout'],
 
     regions: {

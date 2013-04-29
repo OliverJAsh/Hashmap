@@ -11,6 +11,10 @@ App.module('HeaderApp.Show', function (Show, App, Backbone, Marionette, $, _) {
         layout = new Show.Layout(),
         hashtagFormView = this._getHashtagFormView();
 
+      layout.on('live:mode:button:clicked', function () {
+        App.request('toggle:live:mode')
+      })
+
       layout.on('show', function () {
         layout.hashtagFormRegion.show(hashtagFormView);
       });
