@@ -1,1 +1,0 @@
-var HeaderView=Marionette.ItemView.extend({template:JST.header});App.module("HeaderApp.Show",function(e,o){e.Controller={showHeader:function(){var e=new HeaderView;o.headerRegion.show(e)}}}),App.module("HeaderApp",function(e){var o={showHeader:function(){e.Show.Controller.showHeader()}};e.on("start",function(){o.showHeader()})});

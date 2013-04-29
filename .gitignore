@@ -1,6 +1,8 @@
 node_modules
 
 # Project specifics
-site/dist
+*.sublime-*
+site/.sass-cache
+site/temp
+site/build
 site/public/components
-site/public/js/temp
