@@ -24,7 +24,7 @@ App.module('Components.Tweets', function (Tweets, App, Backbone, Marionette) {
       })
 
       this.$el.on('click', function () {
-        $('body').animate({ scrollTop: 0 })
+        $('body').animate({ scrollTop: $('.map').offset().top })
         infoWindow.open(App.map, marker)
       })
 

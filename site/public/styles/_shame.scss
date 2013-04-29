@@ -1,12 +1,5 @@
-.map {
-  padding-top: 48px;
-}
-
 .nav-bar {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
+  position: relative;
   z-index: 1;
   border-bottom: 1px solid darken($brand-color, 23%);
   @include box-shadow(0 0px 3px hsla(0, 0%, 0%, 0.5));
@@ -33,7 +26,7 @@
     float: right;
   }
 
-  @media (max-width: 500px) {
+  @media (max-width: 450px) {
     .title {
       float: none;
       margin-bottom: $base-spacing-unit;
@@ -59,8 +52,11 @@
 }
 
 .content {
-  border-top: 1px solid hsl(0, 0%, 50%);
   background-color: white;
+
+  p:last-child {
+    margin-bottom: 0;
+  }
 }
 
 .header {

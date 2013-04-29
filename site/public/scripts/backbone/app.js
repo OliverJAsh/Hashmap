@@ -66,4 +66,9 @@ App.addInitializer(function () {
     App.map = new google.maps.Map(App.mapRegion.$el[0], mapOptions)
   }, this))
 
+  var $intro = $('.intro')
+  $intro.on('click', '.js-hide-intro', function () {
+    $intro.slideUp()
+  })
+
 })

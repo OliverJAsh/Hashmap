@@ -22,7 +22,6 @@ body {
 }
 
 main {
-  background: blue;
   @include box-shadow(0 2px 5px hsla(0, 0%, 50%, 0.5));
 }
 
