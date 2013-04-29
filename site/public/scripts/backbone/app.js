@@ -40,7 +40,7 @@ App.addInitializer(function () {
   })
 
   socket.on('log:tweet', function (tweet) {
-    console.log('Tweet:', tweet.text)
+    console.log('Tweet:', tweet)
   })
 
   socket.on('hashtag:created', function (hashtags) {

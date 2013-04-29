@@ -2,12 +2,13 @@ App.module('Components.Tweets', function (Tweets, App, Backbone, Marionette) {
 
   Tweets.Tweet = Marionette.ItemView.extend({
     tagName: 'li',
+    className: 'tweet',
     template: JST['tweet'],
 
     onShow: function () {
 
       var infoWindow = new google.maps.InfoWindow({
-        content: this.model.get('text')
+        content: $('<div class="tweet">').append(this.$el.clone()).html()
       })
 
       var geo = this.model.get('geo')
@@ -15,8 +16,7 @@ App.module('Components.Tweets', function (Tweets, App, Backbone, Marionette) {
 
       var marker = new google.maps.Marker({
         position: new google.maps.LatLng(+geo.coordinates[0], +geo.coordinates[1]),
-        map: App.map,
-        title: 'Test'
+        map: App.map
       })
 
       google.maps.event.addListener(marker, 'click', function() {
@@ -24,6 +24,7 @@ App.module('Components.Tweets', function (Tweets, App, Backbone, Marionette) {
       })
 
       this.$el.on('click', function () {
+        $('body').animate({ scrollTop: 0 })
         infoWindow.open(App.map, marker)
       })
 

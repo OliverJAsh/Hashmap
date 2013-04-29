@@ -1,4 +1,4 @@
-App.module('Entities', function (Entities, App, Backbone, Marionette, $, _) {
+App.module('Entities', function (Entities, App, Backbone) {
 
   Entities.Hashtags = Backbone.Collection.extend({
     url: '/api/hashtags',

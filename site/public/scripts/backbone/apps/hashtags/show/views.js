@@ -1,6 +1,7 @@
-App.module('HashtagsApp.Show', function (Show, App, Backbone, Marionette, $, _) {
+App.module('HashtagsApp.Show', function (Show) {
 
   Show.Hashtag = Marionette.Layout.extend({
+    tagName: 'li',
     template: JST['hashtag'],
 
     regions: {
@@ -8,8 +9,10 @@ App.module('HashtagsApp.Show', function (Show, App, Backbone, Marionette, $, _) 
     }
   });
 
-  Show.Hashtags = Marionette.CollectionView.extend({
-    itemView: Show.Hashtag
+  Show.Hashtags = Marionette.CompositeView.extend({
+    template: JST['hashtags'],
+    itemView: Show.Hashtag,
+    itemViewContainer: 'ul'
   });
 
 });

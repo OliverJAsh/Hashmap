@@ -1,11 +1,79 @@
+.map {
+  padding-top: 48px;
+}
+
+.map__controls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  z-index: 1;
+  border-bottom: 1px solid hsl(0, 0%, 50%);
+  @include box-shadow(0 0px 5px hsla(0, 0%, 0%, 0.8));
+  @include background-image(linear-gradient(top, lighten($brand-color, 30%), darken($brand-color, 0%)));
+}
+
+.map__container {
+  height: 300px;
+  width: 100%;
+}
+
 .hashtag-form {
   display: inline-block;
 
-  input {
-    margin-right: $half-spacing-unit;
-  }
-
   .text-input {
     width: 125px;
+  }
+}
+
+.content {
+  border-top: 1px solid hsl(0, 0%, 50%);
+  background-color: white;
+}
+
+.header {
+  margin-bottom: $base-spacing-unit;
+}
+
+.user__name {
+  margin-bottom: 2px;
+}
+
+.user__screen-name {
+  margin-bottom: 2px;
+  font-size: 12px;
+}
+
+.meta {
+  color: hsl(0, 0%, 60%);
+}
+
+.hashtags__list {
+  margin-bottom: 0;
+
+  & > li {
+    margin-bottom: $base-spacing-unit;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.tweets {
+  margin: 0 ($base-spacing-unit * -1);
+  & > ul {
+    margin-bottom: 0;
+  }
+}
+
+.tweet {
+  padding: 4px $base-spacing-unit;
+  p {
+    margin-bottom: 0;
+  }
+  &:hover {
+    cursor: pointer;
+    background: hsl(0, 0%, 90%);
   }
 }

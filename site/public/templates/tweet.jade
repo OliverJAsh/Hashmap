@@ -1,1 +1,6 @@
-button= text
+.media
+  img.media__img.user__avatar(src=user.profile_image_url)
+  .media__body
+    .h3.user__name= user.name
+    .meta.h4.user__screen-name @#{user.screen_name}
+    p= text

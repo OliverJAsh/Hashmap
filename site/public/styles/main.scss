@@ -4,14 +4,29 @@ $base-font-size: 14px;
 $base-line-height: 1.285714286;
 $base-spacing-unit: ($base-line-height * $base-font-size) / 2;
 $half-spacing-unit: $base-spacing-unit / 2;
+$brand-color: hsl(80, 93%, 67%);
 
-@import "shame";
 @import "normalize";
 
 body {
   font-size: $base-font-size;
   line-height: $base-line-height;
+  background-color: lighten($brand-color, 24%);
+}
+
+.container {
+  overflow: hidden;
+  margin: auto;
   max-width: 640px;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.island {
+  padding: $base-spacing-unit;
 }
 
 button {
@@ -26,7 +41,7 @@ button {
 
 h1, h2, h3,
 h4, h5, h6,
-p, pre, blockquote {
+p, pre, blockquote, ul {
   margin-top: 0;
   margin-bottom: $base-spacing-unit;
 }
@@ -58,35 +73,14 @@ h4, h5, h6 {
 .h5 { @extend h5; }
 .h6 { @extend h6; }
 
-.header,
-.hashtags {
-  padding: $base-spacing-unit;
-}
-
-.map__controls {
+form {
   input {
-    @include border-radius(0);
-  }
-
-  .text-input,
-  .btn {
-    border-top: 0;
-  }
-
-  .text-input {
-    width: 242px;
-    border-left: 0;
-  }
-
-  .btn {
-    border-left: 0;
+    margin-right: $half-spacing-unit;
   }
 }
 
-.map__container {
-  height: 300px;
-  width: 100%;
-}
+@import "shame";
 
 @import "objects/btn";
 @import "objects/text-input";
+@import "objects/media";
