@@ -109,7 +109,8 @@ io.sockets.on('connection', function (socket) {
         // the Twitter stream API does not allow you to filter by matches
         // explicitly
 
-        logger.debug('Hashtag:', tweetHashtags)
+        logger.debug('Hashtags:', tweetHashtags)
+        socket.emit('log:tweet:hashtags', tweetHashtags)
 
         hashtags.forEach(function (hashtag) {
           var tagged = _.find(tweetHashtags, function (tweetHashtag) {

@@ -31,6 +31,10 @@ App.addInitializer(function () {
     })
   })
 
+  socket.on('log:tweet:hashtags', function (hashtags) {
+    console.log('Hashtags:', hashtags)
+  })
+
   App.vent.on('add:hashtag', function (name) {
     var hashtag = { name: name }
     socket.emit('hashtags:create', hashtag)
