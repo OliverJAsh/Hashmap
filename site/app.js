@@ -99,23 +99,6 @@ io.sockets.on('connection', function (socket) {
         // No geo? Skip this tweet.
         if (!tweet.geo && !tweet.place) return
 
-        if (!tweet.geo) {
-          function average(array) {
-            // Add together and then divide by the length
-            return _.reduce(array, function (sum, num) {
-              return sum + num;
-            }, 0) / array.length;
-          }
-
-          var
-            coordinates = tweet.place.bounding_box.coordinates[0],
-            lats = coordinates.map(prop(0)),
-            longs = coordinates.map(prop(1))
-
-          tweet.geo = {}
-          tweet.geo.coordinates = [average(lats), average(longs)]
-        }
-
         var tweetHashtags = tweet.entities.hashtags
         tweetHashtags = tweetHashtags.map(prop('text'))
         // No hashtags? Skip this tweet.

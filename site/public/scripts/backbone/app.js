@@ -34,7 +34,7 @@ App.addInitializer(function () {
     var hashtags = App.request('hashtags')
     _.each(hashtags.models, function (hashtag) {
       if (tweet.hashtag !== hashtag.get('name')) return
-      hashtag.tweets.add(tweet)
+      hashtag.tweets.add(tweet, { parse: true })
     })
   })
 
