@@ -31,13 +31,11 @@ App.addInitializer(function () {
     })
   })
 
-  socket.on('hashtags:create', function (hashtag) {
+  App.vent.on('add:hashtag', function (name) {
+    var hashtag = { name: name }
+    socket.emit('hashtags:create', hashtag)
     var hashtags = App.request('hashtags')
     hashtags.add(hashtag)
-  })
-
-  App.vent.on('add:hashtag', function (name) {
-    socket.emit('hashtags:create', { name: name })
   })
 
   google.maps.event.addDomListener(window, 'load', function initialize() {
