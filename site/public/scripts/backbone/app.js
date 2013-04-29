@@ -1,3 +1,10 @@
+// Helper function
+function prop(key) {
+  return function (item) {
+    return item[key]
+  }
+}
+
 var App = new Marionette.Application()
 
 App.addRegions({
@@ -31,8 +38,12 @@ App.addInitializer(function () {
     })
   })
 
-  socket.on('log:tweet:hashtags', function (hashtags) {
-    console.log('Hashtags:', hashtags)
+  socket.on('log:tweet', function (tweet) {
+    console.log('Hashtags:', tweet.entities.hashtags.map(prop('text')))
+  })
+
+  socket.on('hashtag:created', function (hashtags) {
+    console.log('Matching for hashtags:', hashtags.map(prop('name')))
   })
 
   App.vent.on('add:hashtag', function (name) {

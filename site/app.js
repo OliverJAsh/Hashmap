@@ -35,7 +35,7 @@ app.configure('development', function(){
 
 var server = http.createServer(app)
 server.listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'))
+  logger.info('Express server listening on port ' + app.get('port'))
 })
 
 var Twitter = require('ntwitter')
@@ -46,7 +46,7 @@ var twit = new Twitter({
   access_token_secret: 'UZXzCr7TzcQfR2Kl2oYmcr6GuDDsyDVIt9AOG7uf1I'
 })
 
-var io = require('socket.io').listen(server)
+var io = require('socket.io').listen(server, { logger: logger })
 
 var tweetService = require('../lib/tweet/service')
 
@@ -69,18 +69,14 @@ io.sockets.on('connection', function (socket) {
       matcher: new RegExp('(?:^|\s)(' + hashtag.name + ')(?=\s|$)', 'i')
     }, hashtag))
 
-    function prop(key) {
-      return function (item) {
-        return item[key]
-      }
-    }
-
-    logger.info('Matching for hashtags:', hashtags.map(prop('name')))
+    socket.emit('hashtag:created', hashtags)
 
     // Setup the Twitter stream! Track our hashtags, and assert a location.
     // Include replies.
     twit.stream('statuses/filter', {
-      track: hashtags.map(prop('name')).join(','),
+      track: hashtags.map(function (hashtag) {
+        return '#' + hashtag
+      }).join(','),
       locations: '-180,-90,180,90',
       replies: 'all'
     }, function (stream) {
@@ -109,8 +105,8 @@ io.sockets.on('connection', function (socket) {
         // the Twitter stream API does not allow you to filter by matches
         // explicitly
 
-        logger.debug('Hashtags:', tweetHashtags)
-        socket.emit('log:tweet:hashtags', tweetHashtags)
+        // Emit the tweet for inspection in the client console.
+        socket.emit('log:tweet', tweet)
 
         hashtags.forEach(function (hashtag) {
           var tagged = _.find(tweetHashtags, function (tweetHashtag) {
@@ -136,3 +132,10 @@ io.sockets.on('connection', function (socket) {
     })
   })
 })
+
+// Helper function
+function prop(key) {
+  return function (item) {
+    return item[key]
+  }
+}
