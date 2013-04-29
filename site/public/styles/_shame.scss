@@ -30,6 +30,17 @@
   .map-controls {
     float: right;
   }
+
+  @media (max-width: 500px) {
+    .title {
+      float: none;
+      margin-bottom: $base-spacing-unit;
+    }
+
+    .map-controls {
+      float: none;
+    }
+  }
 }
 
 .map {
