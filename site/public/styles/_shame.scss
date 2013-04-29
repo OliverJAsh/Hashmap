@@ -2,18 +2,37 @@
   padding-top: 48px;
 }
 
-.map__controls {
+.nav-bar {
   position: absolute;
   left: 0;
   right: 0;
   top: 0;
   z-index: 1;
-  border-bottom: 1px solid hsl(0, 0%, 50%);
-  @include box-shadow(0 0px 5px hsla(0, 0%, 0%, 0.8));
+  border-bottom: 1px solid darken($brand-color, 23%);
+  @include box-shadow(0 0px 3px hsla(0, 0%, 0%, 0.5));
   @include background-image(linear-gradient(top, lighten($brand-color, 30%), darken($brand-color, 0%)));
+
+  .title {
+    font-family: "aw-conqueror-carved-one",sans-serif;
+    float: left;
+    margin-bottom: 0;
+    line-height: 29px;
+    font-size: 23px;
+    letter-spacing: 1px;
+
+    span {
+      @include opacity(0.4);
+      margin-right: 2px;
+      float: left;
+    }
+  }
+
+  .map-controls {
+    float: right;
+  }
 }
 
-.map__container {
+.map {
   height: 300px;
   width: 100%;
 }

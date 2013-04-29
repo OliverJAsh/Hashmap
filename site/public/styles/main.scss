@@ -20,6 +20,11 @@ body {
   max-width: 640px;
 }
 
+main {
+  background: blue;
+  @include box-shadow(0 2px 5px hsla(0, 0%, 50%, 0.5));
+}
+
 ul {
   list-style: none;
   padding-left: 0;

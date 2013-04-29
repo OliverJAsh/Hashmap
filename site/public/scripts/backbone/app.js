@@ -8,8 +8,9 @@ function prop(key) {
 var App = new Marionette.Application()
 
 App.addRegions({
-  headerRegion: '.header',
+  navBarRegion: '.nav-bar',
   mapRegion: '.map',
+  headerRegion: '.header',
   hashtagsRegion: '.hashtags'
 })
 
@@ -53,5 +54,16 @@ App.addInitializer(function () {
     var hashtags = App.request('hashtags')
     hashtags.add(hashtag)
   })
+
+  google.maps.event.addDomListener(window, 'load', _.bind(function initialize() {
+    var mapOptions = {
+      // London
+      center: new google.maps.LatLng(51.51121389999999, -0.11982439999997041),
+      zoom: 9,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    App.mapRegion.ensureEl()
+    App.map = new google.maps.Map(App.mapRegion.$el[0], mapOptions)
+  }, this))
 
 })

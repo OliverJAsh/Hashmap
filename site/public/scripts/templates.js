@@ -115,35 +115,47 @@ return buf.join("");
 }
 };
 
-this["JST"]["map"] = function anonymous(locals, attrs, escape, rethrow, merge) {
+this["JST"]["nav-bar"] = function anonymous(locals, attrs, escape, rethrow, merge) {
 attrs = attrs || jade.attrs; escape = escape || jade.escape; rethrow = rethrow || jade.rethrow; merge = merge || jade.merge;
-var __jade = [{ lineno: 1, filename: "./public/templates/map.jade" }];
+var __jade = [{ lineno: 1, filename: "./public/templates/nav-bar.jade" }];
 try {
 var buf = [];
 with (locals || {}) {
 var interp;
 __jade.unshift({ lineno: 1, filename: __jade[0].filename });
 __jade.unshift({ lineno: 1, filename: __jade[0].filename });
-buf.push('<form class="map__controls island">');
+buf.push('<div class="container island">');
 __jade.unshift({ lineno: undefined, filename: __jade[0].filename });
 __jade.unshift({ lineno: 2, filename: __jade[0].filename });
-buf.push('<div class="container">');
+buf.push('<h1 class="title">');
 __jade.unshift({ lineno: undefined, filename: __jade[0].filename });
 __jade.unshift({ lineno: 3, filename: __jade[0].filename });
-buf.push('<input type="text" placeholder="Enter a location…" class="text-input"/>');
+buf.push('<span>');
+__jade.unshift({ lineno: undefined, filename: __jade[0].filename });
+__jade.unshift({ lineno: 3, filename: __jade[0].filename });
+buf.push('#');
+__jade.shift();
+__jade.shift();
+buf.push('</span>');
 __jade.shift();
 __jade.unshift({ lineno: 4, filename: __jade[0].filename });
+buf.push('Hashmap');
+__jade.shift();
+__jade.shift();
+buf.push('</h1>');
+__jade.shift();
+__jade.unshift({ lineno: 5, filename: __jade[0].filename });
+buf.push('<form class="map-controls">');
+__jade.unshift({ lineno: undefined, filename: __jade[0].filename });
+__jade.unshift({ lineno: 6, filename: __jade[0].filename });
+buf.push('<input type="text" placeholder="Enter a location…" class="text-input"/>');
+__jade.shift();
+__jade.unshift({ lineno: 7, filename: __jade[0].filename });
 buf.push('<input type="submit" class="btn"/>');
-__jade.shift();
-__jade.shift();
-buf.push('</div>');
 __jade.shift();
 __jade.shift();
 buf.push('</form>');
 __jade.shift();
-__jade.unshift({ lineno: 5, filename: __jade[0].filename });
-buf.push('<div class="map__container">');
-__jade.unshift({ lineno: undefined, filename: __jade[0].filename });
 __jade.shift();
 buf.push('</div>');
 __jade.shift();
