@@ -39,7 +39,7 @@ App.addInitializer(function () {
   })
 
   socket.on('log:tweet', function (tweet) {
-    console.log('Hashtags:', tweet.entities.hashtags.map(prop('text')))
+    console.log('Tweet:', tweet)
   })
 
   socket.on('hashtag:created', function (hashtags) {

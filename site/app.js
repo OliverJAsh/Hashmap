@@ -75,10 +75,12 @@ io.sockets.on('connection', function (socket) {
     // Include replies.
     twit.stream('statuses/filter', {
       track: hashtags.map(function (hashtag) {
-        return '#' + hashtag
-      }).join(','),
-      locations: '-180,-90,180,90',
-      replies: 'all'
+        return '#' + hashtag.name
+      }).join(',')
+      // We don't bother use the location filter, because it acts as an OR
+      // operator to our tacks, instead of an AND, thus producing lots of false
+      // matches. :(
+      // ,locations: '-180,-90,180,90'
     }, function (stream) {
 
       // Store the stream in the scope of this socket so that we can destroy it
@@ -92,8 +94,27 @@ io.sockets.on('connection', function (socket) {
       stream.on('data', function (data) {
         var tweet = data
 
+        socket.emit('log:tweet', tweet)
+
         // No geo? Skip this tweet.
-        if (!tweet.geo) return
+        if (!tweet.geo && !tweet.place) return
+
+        if (!tweet.geo) {
+          function average(array) {
+            // Add together and then divide by the length
+            return _.reduce(array, function (sum, num) {
+              return sum + num;
+            }, 0) / array.length;
+          }
+
+          var
+            coordinates = tweet.place.bounding_box.coordinates[0],
+            lats = coordinates.map(prop(0)),
+            longs = coordinates.map(prop(1))
+
+          tweet.geo = {}
+          tweet.geo.coordinates = [average(lats), average(longs)]
+        }
 
         var tweetHashtags = tweet.entities.hashtags
         tweetHashtags = tweetHashtags.map(prop('text'))
@@ -106,12 +127,12 @@ io.sockets.on('connection', function (socket) {
         // explicitly
 
         // Emit the tweet for inspection in the client console.
-        socket.emit('log:tweet', tweet)
+        // socket.emit('log:tweet', tweet)
 
         hashtags.forEach(function (hashtag) {
           var tagged = _.find(tweetHashtags, function (tweetHashtag) {
             // Match whole hashtag only
-            hashtag.matcher.test(tweetHashtag.text)
+            return hashtag.matcher.test(tweetHashtag)
           })
 
           // If the tweet contains no matches, we skip it.
