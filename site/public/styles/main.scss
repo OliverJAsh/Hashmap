@@ -1,3 +1,8 @@
+@import "compass";
+
+@import "shame";
+@import "normalize";
+
 $base-font-size: 14px;
 $base-line-height: 1.285714286;
 $base-spacing-unit: $base-line-height * $base-font-size;
@@ -5,6 +10,16 @@ $base-spacing-unit: $base-line-height * $base-font-size;
 body {
   font-size: $base-font-size;
   line-height: $base-line-height;
+}
+
+button {
+  background: none;
+  border: 0;
+  text-align: left;
+  padding: 0;
+  font: inherit;
+  line-height: 1;
+  cursor: pointer;
 }
 
 h1, h2, h3,
@@ -49,4 +64,7 @@ h4, h5, h6 {
 
 html { height: 100% }
 body { height: 100%; margin: 0; padding: 0 }
-.map { height: 400px; width: 700px; }
+.map { height: 400px; width: 100%; }
+
+@import "objects/btn";
+@import "objects/text-input";
