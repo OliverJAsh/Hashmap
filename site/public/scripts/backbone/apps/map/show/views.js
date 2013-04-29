@@ -36,7 +36,7 @@ App.module('MapApp.Show', function (Show, App, Backbone, Marionette) {
             position: results[0].geometry.location
           })
         } else {
-          alert('Geocode was not successful for the following reason: ' + status);
+          alert('No such place could be found.');
         }
       });
     }

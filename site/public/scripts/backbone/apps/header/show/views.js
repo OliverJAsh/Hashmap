@@ -1,8 +1,19 @@
 App.module('HeaderApp.Show', function (Show, App, Backbone, Marionette) {
 
   Show.Layout = Marionette.Layout.extend({
-    triggers: {
-      'click .js-toggle-live-mode': 'live:mode:button:clicked'
+    ui: {
+      'liveModeButton': '.js-toggle-live-mode'
+    },
+
+    events: {
+      'click .js-toggle-live-mode': 'onLiveModeButtonClicked'
+    },
+
+    onLiveModeButtonClicked: function () {
+      this.ui.liveModeButton
+        .toggleClass('btn--off')
+        .toggleClass('btn--on')
+      this.trigger('live:mode:button:clicked')
     },
 
     template: JST['header-show-layout'],
@@ -20,10 +31,17 @@ App.module('HeaderApp.Show', function (Show, App, Backbone, Marionette) {
       'submit': 'onSubmit'
     },
 
+    ui: {
+      hashtagInput: 'input[type="text"]'
+    },
+
     onSubmit: function (event) {
       event.preventDefault();
-      var query = this.$('input[type="text"]').val();
+      var query = this.ui.hashtagInput.val();
       this.trigger('form:submitted', query);
+      this.ui.hashtagInput
+        .val('')
+        .blur()
     }
   });
 

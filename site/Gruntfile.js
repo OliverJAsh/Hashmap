@@ -49,21 +49,17 @@ module.exports = function (grunt) {
       }
     },
 
-    htmlmin: {
-      dist: {
-        files: [{
-          expand: true,
-          cwd: './views',
-          src: '*.html',
-          dest: './public'
-        }]
-      }
-    },
-
     useminPrepare: {
       html: './public/index.html',
       options: {
         dest: './build'
+      }
+    },
+
+    copy: {
+      html: {
+        src: ['./public/index.html'],
+        dest: './build/index.html'
       }
     },
 
@@ -81,8 +77,8 @@ module.exports = function (grunt) {
   grunt.loadTasks('../node_modules/grunt-usemin/tasks');
   grunt.loadTasks('../node_modules/grunt-contrib-concat/tasks');
   grunt.loadTasks('../node_modules/grunt-contrib-uglify/tasks');
-  grunt.loadTasks('../node_modules/grunt-contrib-htmlmin/tasks');
   grunt.loadTasks('../node_modules/grunt-contrib-compass/tasks');
+  grunt.loadTasks('../node_modules/grunt-contrib-copy/tasks');
 
   grunt.registerTask('default', [
     'jade',
@@ -94,7 +90,7 @@ module.exports = function (grunt) {
     'useminPrepare',
     'concat',
     'uglify',
-    'htmlmin',
+    'copy',
     'usemin'
   ]);
 };

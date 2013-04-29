@@ -33,6 +33,18 @@ $btn-border-color: #ccc;
   }
 }
 
+@mixin btn-style($btn-background-color) {
+  $btn-border-color: $btn-background-color;
+  @include text-shadow(0 1px 0 hsla(0, 0%, 100%, 0.4));
+  border-color: $btn-border-color;
+  border-bottom-color: darken($btn-border-color, 10%);
+  @include background-image(linear-gradient(top, lighten($btn-background-color, 12%), $btn-background-color));
+}
+
 .btn--off {
-  @include background-image(linear-gradient(top, hsl(0, 100%, 90%), hsl(0, 100%, 70%)));
+  @include btn-style(hsl(0, 68%, 85%))
+}
+
+.btn--on {
+  @include btn-style(hsl(100, 68%, 85%))
 }

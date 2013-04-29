@@ -68,9 +68,18 @@ h4, h5, h6 {
     @include border-radius(0);
   }
 
+  .text-input,
+  .btn {
+    border-top: 0;
+  }
+
   .text-input {
-    border-right: 0;
-    width: 241px;
+    width: 242px;
+    border-left: 0;
+  }
+
+  .btn {
+    border-left: 0;
   }
 }
 

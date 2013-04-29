@@ -4,8 +4,8 @@ var
   http = require('http')
 
 var
-  env = process.env.NODE_ENV || 'development',
-  debug = env === 'development',
+  properties = require('../properties')(),
+  debug = properties.env === 'development',
   // Only have debug logging on development
   logLevel = debug ? 'debug' : 'info',
   logger = require('logga')({ timeOnly: debug, logLevel: logLevel })
@@ -13,7 +13,7 @@ var
 var app = express()
 
 app.configure(function(){
-  app.set('port', process.env.PORT || 3000)
+  app.set('port', process.env.PORT || properties.port)
   app.use(express.favicon())
   app.use(express.logger('dev'))
   app.use(express.bodyParser())
